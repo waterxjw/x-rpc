@@ -16,7 +16,29 @@
         <artifactId>junit</artifactId>
         <version>4.12</version>
     </dependency>
-
+    <!-- Netty -->
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.0.26.Final</version>
+    </dependency>
+    <!-- Protostuff -->
+    <dependency>
+        <groupId>com.dyuproject.protostuff</groupId>
+        <artifactId>protostuff-core</artifactId>
+        <version>1.0.9</version>
+    </dependency>
+    <dependency>
+        <groupId>com.dyuproject.protostuff</groupId>
+        <artifactId>protostuff-runtime</artifactId>
+        <version>1.0.9</version>
+    </dependency>
+    <!-- Objenesis -->
+    <dependency>
+        <groupId>org.objenesis</groupId>
+        <artifactId>objenesis</artifactId>
+        <version>2.1</version>
+    </dependency>
     <!--SOFABolt -->
     <dependency>
         <groupId>com.alipay.sofa</groupId>

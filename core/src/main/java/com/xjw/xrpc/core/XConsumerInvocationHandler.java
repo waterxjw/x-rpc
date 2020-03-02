@@ -2,6 +2,7 @@ package com.xjw.xrpc.core;
 
 import com.xjw.xrpc.api.XConsumerConfig;
 import com.xjw.xrpc.communication.Request;
+import com.xjw.xrpc.communication.Response;
 import com.xjw.xrpc.communication.Url;
 import com.xjw.xrpc.filter.Filter;
 import com.xjw.xrpc.filter.FilterChain;
@@ -30,7 +31,12 @@ public class XConsumerInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Request request=buildRequest(method,args);
         //由包装好的invoker执行
-        return wrappedInvoker.invoke(request).getResult();
+        Response response=wrappedInvoker.invoke(request);
+        if(response.hasException()){
+            throw response.getException();
+        }else{
+            return response.getResult();
+        }
     }
 
     private Request buildRequest(Method method,Object[] args){

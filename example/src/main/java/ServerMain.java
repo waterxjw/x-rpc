@@ -8,5 +8,6 @@ public class ServerMain {
         config.setImpl(new UserServiceImpl());
         XProvider provider=new XProvider(config);
         provider.publish();
+        XProvider.start();
     }
 }
