@@ -6,6 +6,6 @@ import com.xjw.xrpc.core.Invoker;
 
 public interface Filter {
     //扩展功能通过实现filter方法，加入逻辑，影响处理流程
-    public Response filter(Invoker invoker, Request request);
+    public Response filter(Invoker invoker, Request request) throws Throwable;
 
 }

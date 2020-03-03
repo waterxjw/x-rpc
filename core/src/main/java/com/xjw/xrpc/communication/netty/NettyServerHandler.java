@@ -21,6 +21,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
                 Object result=request.getMethod().invoke(provider.getConfig().getProxy(),request.getArgs());
                 response.setResult(result);
             }catch (Exception e){
+                System.out.println(e.getMessage());
                 response.setException(e);
             }
         }

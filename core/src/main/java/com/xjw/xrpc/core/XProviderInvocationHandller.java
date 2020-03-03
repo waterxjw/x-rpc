@@ -5,6 +5,7 @@ import com.xjw.xrpc.communication.Request;
 import com.xjw.xrpc.communication.Url;
 import com.xjw.xrpc.filter.Filter;
 import com.xjw.xrpc.filter.FilterChain;
+import com.xjw.xrpc.flowlimit.ConcurrencyLimitFilter;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -22,10 +23,12 @@ public class XProviderInvocationHandller implements InvocationHandler {
         List<Filter> filters=new ArrayList<Filter>();
         //在这里加入生产者端应加入的filter
         //filters.add()
+        filters.add(ConcurrencyLimitFilter.getInstance());
         FilterChain filterChain=new FilterChain(originInvoker,filters);
         this.wrappedInvoker=filterChain.getWrappedInvoker();
     }
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("receive a request");
         Request request=buildRequest(method,args);
         //由包装好的invoker执行
         return wrappedInvoker.invoke(request).getResult();
@@ -36,6 +39,9 @@ public class XProviderInvocationHandller implements InvocationHandler {
         Request request=new Request();
         request.setMethod(method);
         request.setArgs(args);
+        request.setMethodName(method.getName());
+        request.setArgTypes(method.getParameterTypes());
+        request.setServiceName(method.getDeclaringClass().getName());
         return request;
     }
 }
